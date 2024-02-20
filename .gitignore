@@ -1,4 +1,23 @@
 # 忽略本地配置文件
 .env
-./data
-./data/persist
+
+# 忽略编译生成的文件和目录
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyz
+*.pyw
+*.pyz/
+dist/
+build/
+*.egg-info/
+
+# 忽略编辑器/IDE生成的文件
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln
+*.swp
+*.pickle
