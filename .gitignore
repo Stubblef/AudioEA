@@ -3,6 +3,7 @@
 
 # 忽略编译生成的文件和目录
 __pycache__/
+data/
 *.pyc
 *.pyo
 *.pyd
