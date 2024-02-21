@@ -319,7 +319,7 @@ def encode_tokens(
 
 
 def load_model(config_name, checkpoint_path, device, precision):
-    with initialize(version_base="1.3", config_path="../../fish_speech/configs"):
+    with initialize(version_base="1.3", config_path="../configs"):
         cfg = compose(config_name=config_name)
 
     with torch.device("meta"):
