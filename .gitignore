@@ -4,6 +4,7 @@
 # 忽略编译生成的文件和目录
 __pycache__/
 data/
+logs/
 *.pyc
 *.pyo
 *.pyd
