@@ -43,13 +43,13 @@ data:
 
 # Model Configuration
 model:
-  _target_: fish_speech.models.text2semantic.TextToSemantic
+  _target_: models.text2semantic.TextToSemantic
 
   model:
     # ~ 130M parameters, for debug purpose
-    _target_: fish_speech.models.text2semantic.llama.Transformer
+    _target_: models.text2semantic.llama.Transformer
     config:
-      _target_: fish_speech.models.text2semantic.llama.ModelArgs
+      _target_: models.text2semantic.llama.ModelArgs
       max_seq_len: 4096
       vocab_size: 36408
       n_layer: 24
@@ -73,7 +73,7 @@ model:
     _target_: torch.optim.lr_scheduler.LambdaLR
     _partial_: true
     lr_lambda:
-      _target_: fish_speech.scheduler.get_cosine_schedule_with_warmup_lr_lambda
+      _target_: scheduler.get_cosine_schedule_with_warmup_lr_lambda
       _partial_: true
       num_warmup_steps: 100
       num_training_steps: ${trainer.max_steps}

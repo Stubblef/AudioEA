@@ -24,11 +24,14 @@ if hasattr(torch._inductor.config, "fx_graph_cache"):
     # Experimental feature to reduce compilation times, will be on by default in future
     torch._inductor.config.fx_graph_cache = True
 
+import sys
+sys.path.append("/data/JHQ/AI/tts/AudioEA")
 
-from fish_speech.models.text2semantic.llama import Transformer
-from fish_speech.text import g2p
-from fish_speech.text.symbols import pad as pad_symbol
-from fish_speech.text.symbols import pu_symbols
+from models.text2semantic.llama import Transformer
+from txt_parser import g2p
+from txt_parser.symbols import pad as pad_symbol
+from txt_parser.symbols import pu_symbols
+
 
 
 def multinomial_sample_one_no_sync(
@@ -321,8 +324,9 @@ def encode_tokens(
 def load_model(config_name, checkpoint_path, device, precision):
     with initialize(version_base="1.3", config_path="../configs"):
         cfg = compose(config_name=config_name)
-
+    print(f"config_name+++:{config_name}")
     with torch.device("meta"):
+        print(f"0000000000\t{cfg.model}")
         model: Transformer = instantiate(cfg.model).model
 
     if "int8" in str(checkpoint_path):
@@ -362,7 +366,7 @@ def load_model(config_name, checkpoint_path, device, precision):
 
 
 @click.command()
-@click.option("--text", type=str, default="你说的对, 但是原神是一款由米哈游自主研发的开放世界手游.")
+@click.option("--text", type=str, default="总的来说，这段代码的目的是将音频数据写入一个内存中的缓冲区，而不是实际写入磁盘文件")
 @click.option("--prompt-text", type=str, default=None)
 @click.option(
     "--prompt-tokens", type=click.Path(path_type=Path, exists=True), default=None
@@ -417,6 +421,7 @@ def main(
 
     logger.info("Loading model ...")
     t0 = time.time()
+    print(f"------------config_name, checkpoint_path, device, precision{config_name, checkpoint_path, device, precision}")
     model = load_model(config_name, checkpoint_path, device, precision)
     model_size = sum(p.numel() for p in model.parameters() if p.requires_grad)
 

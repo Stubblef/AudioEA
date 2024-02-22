@@ -5,8 +5,8 @@ import jieba.posseg as psg
 # from loguru import logger
 from pypinyin import Style, lazy_pinyin
 
-from symbols import punctuation
-from tone_sandhi import ToneSandhi
+from .symbols import punctuation
+from .tone_sandhi import ToneSandhi
 
 import cn2an
 
